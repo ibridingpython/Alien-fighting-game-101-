@@ -1,0 +1,88 @@
+import random
+
+alien_1 = {}
+player_1 = {'health':100}
+
+def difficulty():
+    print("1 - Easy")
+    print("2 - Normal")
+    print("3 - Hard")
+    
+def moves():
+    print("\n1 - attack")
+    print("2 - defend")
+    print("3 - surrender")    
+
+prompt = "\nWelcome, let's fight an alien!"
+prompt += "\nEnter '0' to quit, input difficulty: "
+
+while True:
+    difficulty()
+    move = input(prompt)
+    move = int(move)
+    
+    if move == 0:
+        print("Program termianted, thanks for playing.")
+        break
+    elif move == 1:
+        alien_1['health'] = 100
+        alien_1['color'] = 'green'
+        alien_1['speed'] = 'slow'    
+        alien_damage = 10
+        
+    elif move == 2:
+        alien_1['health'] = 200
+        alien_1['color'] = 'yellow'
+        alien_1['speed'] = 'medium'
+        alien_damage = 20
+        
+        
+    elif move == 3:
+        alien_1['health'] = 300
+        alien_1['color'] = 'red'
+        alien_1['speed'] = 'fast'
+        alien_damage = 30
+        
+    else:
+        print("Invalid, please choose the number from 1-3.")
+        continue
+        
+    while True:
+        print("\nOMGAHH ALIEN IS HERE!")
+        print("====Alien information====:" )
+        for key, value in alien_1.items():
+            print(f"{key}: {value}")
+        
+        print("\n--==Your information==--:")
+        for key, value in player_1.items():
+            print(f"{key}: {value}")
+        
+        moves()
+        move_2 = int(input("Enter your move: "))
+    
+        if move_2 == 3:
+            print("You've surrendered and earth is destroyed!")
+            break
+        elif move_2 == 2:
+            damage_taken = alien_damage // 2 # halved cuz you defend
+            player_1['health'] -= damage_taken
+            print(f"You've defended! The alien did {damage_taken} on you!")
+        elif move_2 == 1:
+            player_attack = random.randint(10, 30)
+            alien_1['health'] -= player_attack
+            damage_taken = alien_damage # no reduction cz you don't defend
+            player_1['health'] -= damage_taken
+            print(f"You dealt {player_attack} to the alien!")
+            print(f"You've taken {damage_taken} from the alien!")
+        
+        print(f"Alien health: {alien_1['health']}")
+        print(f"Your health: {player_1['health']}")
+    
+        if player_1['health'] <= 0:
+            print("You died, earth is destroyed!")
+            break
+        if alien_1['health'] <= 0:
+            print("You've won, earth is saved!")
+            break
+        
+    break
